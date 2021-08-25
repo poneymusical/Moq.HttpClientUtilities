@@ -5,6 +5,7 @@
     <PackageId>HttpClient.TestUtilities</PackageId>
     <Authors>PoneyMusical</Authors>
     <PackageProjectUrl>https://github.com/poneymusical/Moq.HttpClientUtilities</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
