@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b7d5f39-f26b-450d-af12-588d58bc3522" name="Changes" comment="" />
+    <list default="true" id="9b7d5f39-f26b-450d-af12-588d58bc3522" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/HttpClientFactoryExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/HttpClientFactoryExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/VerifyExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/VerifyExtensions.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +33,7 @@
       <option name="presentableId" value="Default" />
       <updated>1629928221739</updated>
       <workItem from="1629928226128" duration="240000" />
+      <workItem from="1629929195135" duration="427000" />
     </task>
     <servers />
   </component>
