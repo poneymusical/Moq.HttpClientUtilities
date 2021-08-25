@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>HttpClient.TestUtilities</PackageId>
+    <Authors>PoneyMusical</Authors>
+    <PackageProjectUrl>https://github.com/poneymusical/Moq.HttpClientUtilities</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
