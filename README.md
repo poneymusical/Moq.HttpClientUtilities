@@ -1,6 +1,6 @@
 # HttpClient.TestUtilities
 
-[![Build Status](https://dev.azure.com/guhke/Moq.HttpClientUtilities/_apis/build/status/poneymusical.Moq.HttpClientUtilities?branchName=main)](https://dev.azure.com/guhke/Moq.HttpClientUtilities/_build/latest?definitionId=17&branchName=main)
+![Build Status](https://dev.azure.com/guhke/Moq.HttpClientUtilities/_apis/build/status/poneymusical.Moq.HttpClientUtilities?branchName=main "Build Status")
 
 This nuget package helps you building unit tests for classes that use HttpClient/IHttpClientFactory.
 
