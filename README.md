@@ -1,5 +1,7 @@
 # HttpClient.TestUtilities
 
+[![Build Status](https://dev.azure.com/guhke/Moq.HttpClientUtilities/_apis/build/status/poneymusical.Moq.HttpClientUtilities?branchName=main)](https://dev.azure.com/guhke/Moq.HttpClientUtilities/_build/latest?definitionId=17&branchName=main)
+
 This nuget package helps you building unit tests for classes that use HttpClient/IHttpClientFactory.
 
 It is required that you use Moq for mocking your dependencies in your unit tests.
