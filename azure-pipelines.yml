@@ -1,0 +1,24 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '3.x'
+
+- script: dotnet build --configuration $(buildConfiguration) Moq.HttpClientUtilities.sln
+  displayName: 'Build solution'
+
+- script: dotnet test Moq.HttpClientUtilities.sln
+  displayName: 'Run UTs'
+
+- script: dotnet nuget push -s https://www.nuget.org -k $(NUGETAPIKEY) --skip-duplicate src/Moq.HttpClientUtilities/bin/Release/*.nupkg
+  displayName: 'Push nuget to nuget.org'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
