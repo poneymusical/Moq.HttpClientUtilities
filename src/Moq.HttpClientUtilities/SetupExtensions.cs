@@ -12,6 +12,25 @@ namespace Moq.HttpClientUtilities
     {
         internal const string SendAsync = "SendAsync";
 
+
+        public static void SetupResponseOnGET(this Mock<HttpMessageHandler> handler,
+            string uri, HttpStatusCode statusCode, object content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponse(handler, HttpMethod.Get, uri, statusCode, content, sentRequests);
+
+        public static void SetupResponseOnGET(this Mock<HttpMessageHandler> handler,
+            string uri, HttpStatusCode statusCode, byte[] content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponse(handler, HttpMethod.Get, uri, statusCode, content, sentRequests);
+
+        public static void SetupResponseOnGET(this Mock<HttpMessageHandler> handler,
+            string uri, HttpStatusCode statusCode, string content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponse(handler, HttpMethod.Get, uri, statusCode, content, sentRequests);
+
+        public static void SetupResponseOnGET(this Mock<HttpMessageHandler> handler,
+            string uri, HttpStatusCode statusCode, HttpContent content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponse(handler, HttpMethod.Get, uri, statusCode, content, sentRequests);
+
+
+
         public static void SetupResponse(this Mock<HttpMessageHandler> handler, 
             HttpMethod method, string uri, HttpStatusCode statusCode, object content, IList<HttpRequestMessage> sentRequests = null) =>
             SetupResponse(handler, method, uri, statusCode, content.ToJsonString(), sentRequests);
@@ -40,19 +59,39 @@ namespace Moq.HttpClientUtilities
                 });
         }
 
-        public static void SetupUbiquitousResponse(this Mock<HttpMessageHandler> handler,
+
+
+        public static void SetupOKResponseOnAnyMethodAnyURI(this Mock<HttpMessageHandler> handler,
+            object content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponseOnAnyMethodAnyURI(handler, HttpStatusCode.OK, content, sentRequests);
+
+        public static void SetupOKResponseOnAnyMethodAnyURI(this Mock<HttpMessageHandler> handler,
+            byte[] content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponseOnAnyMethodAnyURI(handler, HttpStatusCode.OK, new ByteArrayContent(content), sentRequests);
+
+        public static void SetupOKResponseOnAnyMethodAnyURI(this Mock<HttpMessageHandler> handler,
+            string content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponseOnAnyMethodAnyURI(handler, HttpStatusCode.OK, new StringContent(content), sentRequests);
+
+        public static void SetupOKResponseOnAnyMethodAnyURI(this Mock<HttpMessageHandler> handler,
+            HttpContent content = null, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponseOnAnyMethodAnyURI(handler, HttpStatusCode.OK, content, sentRequests);
+
+
+
+        public static void SetupResponseOnAnyMethodAnyURI(this Mock<HttpMessageHandler> handler,
             HttpStatusCode statusCode, object content, IList<HttpRequestMessage> sentRequests = null) =>
-            SetupUbiquitousResponse(handler, statusCode, content.ToJsonString(), sentRequests);
+            SetupResponseOnAnyMethodAnyURI(handler, statusCode, content.ToJsonString(), sentRequests);
 
-        public static void SetupUbiquitousResponse(this Mock<HttpMessageHandler> handler,
+        public static void SetupResponseOnAnyMethodAnyURI(this Mock<HttpMessageHandler> handler,
             HttpStatusCode statusCode, byte[] content, IList<HttpRequestMessage> sentRequests = null) =>
-            SetupUbiquitousResponse(handler, statusCode, new ByteArrayContent(content), sentRequests);
+            SetupResponseOnAnyMethodAnyURI(handler, statusCode, new ByteArrayContent(content), sentRequests);
 
-        public static void SetupUbiquitousResponse(this Mock<HttpMessageHandler> handler,
+        public static void SetupResponseOnAnyMethodAnyURI(this Mock<HttpMessageHandler> handler,
             HttpStatusCode statusCode, string content, IList<HttpRequestMessage> sentRequests = null) =>
-            SetupUbiquitousResponse(handler, statusCode, new StringContent(content), sentRequests);
+            SetupResponseOnAnyMethodAnyURI(handler, statusCode, new StringContent(content), sentRequests);
 
-        public static void SetupUbiquitousResponse(this Mock<HttpMessageHandler> handler, 
+        public static void SetupResponseOnAnyMethodAnyURI(this Mock<HttpMessageHandler> handler, 
             HttpStatusCode statusCode, HttpContent content = null, IList<HttpRequestMessage> sentRequests = null)
         {
             handler.Protected()
@@ -68,73 +107,70 @@ namespace Moq.HttpClientUtilities
                 });
         }
 
-        public static void SetupUbiquitousOKResponse(this Mock<HttpMessageHandler> handler,
+
+
+        public static void SetupOKResponseOnGETAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
             object content, IList<HttpRequestMessage> sentRequests = null) =>
-            SetupUbiquitousResponse(handler, HttpStatusCode.OK, content, sentRequests);
+            SetupResponseOnAnyURI(mockHttpMessageHandler, HttpMethod.Get, HttpStatusCode.OK, content, sentRequests);
 
-        public static void SetupUbiquitousOKResponse(this Mock<HttpMessageHandler> handler,
-            byte[] content, IList<HttpRequestMessage> sentRequests = null) =>
-            SetupUbiquitousResponse(handler, HttpStatusCode.OK, new ByteArrayContent(content), sentRequests);
-
-        public static void SetupUbiquitousOKResponse(this Mock<HttpMessageHandler> handler,
+        public static void SetupOKResponseOnGETAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
             string content, IList<HttpRequestMessage> sentRequests = null) =>
-            SetupUbiquitousResponse(handler, HttpStatusCode.OK, new StringContent(content), sentRequests);
+            SetupResponseOnAnyURI(mockHttpMessageHandler, HttpMethod.Get, HttpStatusCode.OK, content, sentRequests);
 
-        public static void SetupUbiquitousOKResponse(this Mock<HttpMessageHandler> handler,
-            HttpContent content = null, IList<HttpRequestMessage> sentRequests = null) =>
-            SetupUbiquitousResponse(handler, HttpStatusCode.OK, content, sentRequests);
+        public static void SetupOKResponseOnGETAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
+            byte[] content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponseOnAnyURI(mockHttpMessageHandler, HttpMethod.Get, HttpStatusCode.OK, content, sentRequests);
+
+        public static void SetupOKResponseOnGETAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
+            HttpContent content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponseOnAnyURI(mockHttpMessageHandler, HttpMethod.Get, HttpStatusCode.OK, content, sentRequests);
 
 
 
-        /*
-         * protected void SetupGetResponse(object content) =>
-            SetupGetResponse(HttpStatusCode.OK, content);
+        public static void SetupResponseOnGETAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
+            HttpStatusCode statusCode, object content, IList<HttpRequestMessage> sentRequests = null)
+            => SetupResponseOnAnyURI(mockHttpMessageHandler, HttpMethod.Get, statusCode, content);
 
-        protected void SetupGetResponse(byte[] content) =>
-            SetupGetResponse(HttpStatusCode.OK, content);
+        public static void SetupResponseOnGETAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
+            HttpStatusCode statusCode, byte[] content, IList<HttpRequestMessage> sentRequests = null)
+            => SetupResponseOnAnyURI(mockHttpMessageHandler, HttpMethod.Get, statusCode, content);
 
-        protected void SetupGetResponse(string content) =>
-            SetupGetResponse(HttpStatusCode.OK, content);
+        public static void SetupResponseOnGETAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
+            HttpStatusCode statusCode, string content, IList<HttpRequestMessage> sentRequests = null)
+            => SetupResponseOnAnyURI(mockHttpMessageHandler, HttpMethod.Get, statusCode, content);
 
-        protected void SetupGetResponse(HttpStatusCode statusCode, object content) =>
-            SetupResponse(HttpMethod.Get, statusCode, content);
+        public static void SetupResponseOnGETAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
+            HttpStatusCode statusCode, HttpContent content, IList<HttpRequestMessage> sentRequests = null)
+            => SetupResponseOnAnyURI(mockHttpMessageHandler, HttpMethod.Get, statusCode, content);
 
-        protected void SetupGetResponse(HttpStatusCode statusCode, byte[] content) =>
-            SetupResponse(HttpMethod.Get, statusCode, content);
 
-        protected void SetupGetResponse(HttpStatusCode statusCode, string content) =>
-            SetupResponse(HttpMethod.Get, statusCode, content);
 
-        protected void SetupResponse(HttpMethod method, HttpStatusCode statusCode, object content) =>
-            SetupResponse(method, statusCode, JToken.FromObject(content).ToString(Formatting.None));
+        public static void SetupResponseOnAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
+            HttpMethod method, HttpStatusCode statusCode, object content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponseOnAnyURI(mockHttpMessageHandler, method, statusCode, content.ToJsonString(), sentRequests);
 
-        protected void SetupResponse(HttpMethod method, HttpStatusCode statusCode, byte[] content) =>
-            SetupResponse(method, statusCode, new ByteArrayContent(content));
+        public static void SetupResponseOnAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
+            HttpMethod method, HttpStatusCode statusCode, byte[] content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponseOnAnyURI(mockHttpMessageHandler, method, statusCode, new ByteArrayContent(content), sentRequests);
 
-        protected void SetupResponse(HttpMethod method, HttpStatusCode statusCode, string content) =>
-            SetupResponse(method, statusCode, new StringContent(content));
+        public static void SetupResponseOnAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler,
+            HttpMethod method, HttpStatusCode statusCode, string content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupResponseOnAnyURI(mockHttpMessageHandler, method, statusCode, new StringContent(content), sentRequests);
 
-        protected void SetupResponse(HttpMethod method, HttpStatusCode statusCode, HttpContent httpContent)
+        public static void SetupResponseOnAnyURI(this Mock<HttpMessageHandler> mockHttpMessageHandler, 
+            HttpMethod method, HttpStatusCode statusCode, HttpContent content, IList<HttpRequestMessage> sentRequests = null)
         {
-            MockHttpMessageHandler.Protected()
+            mockHttpMessageHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(SendAsync, ItExpr.Is<HttpRequestMessage>(x => x.Method == method), ItExpr.IsAny<CancellationToken>())
-                .Callback<HttpRequestMessage, CancellationToken>((message, token) => { SentMessage = message; })
+                .Callback<HttpRequestMessage, CancellationToken>((message, token) =>
+                {
+                    sentRequests?.Add(message);
+                })
                 .ReturnsAsync(new HttpResponseMessage
                 {
                     StatusCode = statusCode,
-                    Content = httpContent
+                    Content = content
                 });
         }
-
-
-        protected void SetupGetResponse(string uri, HttpStatusCode statusCode, object content) =>
-            SetupResponse(HttpMethod.Get, uri, statusCode, content);
-
-        protected void SetupGetResponse(string uri, HttpStatusCode statusCode, byte[] content) =>
-            SetupResponse(HttpMethod.Get, uri, statusCode, content);
-
-        protected void SetupGetResponse(string uri, HttpStatusCode statusCode, string content) =>
-            SetupResponse(HttpMethod.Get, uri, statusCode, content);
-         */
     }
 }

@@ -1,7 +1,11 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
+using FluentAssertions;
+using Moq.HttpClientUtilities.Utils;
 using Xunit;
 
 namespace Moq.HttpClientUtilities.Samples
@@ -16,8 +20,10 @@ namespace Moq.HttpClientUtilities.Samples
         {
             var value = _fixture.Create<string>();
             _mockHttpMessageHandler.SetupResponse(HttpMethod.Get, MyService.Path, HttpStatusCode.OK, new StringContent(value));
+            
             var result = await BuildService().GetValue();
-            Assert.Equal(value, result);
+            
+            result.Should().Be(value);
             _mockHttpMessageHandler.Verify(HttpMethod.Get, MyService.Path, Times.Once());
         }
 
@@ -25,9 +31,25 @@ namespace Moq.HttpClientUtilities.Samples
         public async Task TestGetValue_ShouldThrowIfResponseIsNotFound()
         {
             _mockHttpMessageHandler.SetupResponse(HttpMethod.Get, MyService.Path, HttpStatusCode.NotFound);
-            var service = BuildService();
-            await Assert.ThrowsAsync<HttpRequestException>(() => service.GetValue());
+            
+            Func<Task> action = () => BuildService().GetValue();
+            
+            await action.Should().ThrowAsync<HttpRequestException>();
             _mockHttpMessageHandler.Verify(HttpMethod.Get, MyService.Path, Times.Once());
+        }
+
+        [Fact]
+        public async Task TestGetValue_SentRequestsExample()
+        {
+            var value = _fixture.Create<string>();
+            var sentRequests = new List<HttpRequestMessage>();
+            _mockHttpMessageHandler.SetupOKResponseOnAnyMethodAnyURI(value, sentRequests);
+            
+            var result = await BuildService().GetValue();
+            
+            sentRequests.Should().HaveCount(1);
+            sentRequests[0].Method.Should().Be(HttpMethod.Get);
+            sentRequests[0].Should().Match<HttpRequestMessage>(request => request.MatchesUri(MyService.Path));
         }
 
         private MyService BuildService() => 

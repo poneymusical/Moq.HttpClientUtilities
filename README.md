@@ -61,8 +61,10 @@ namespace Moq.HttpClientUtilities.Samples
         {
             var value = _fixture.Create<string>();
             _mockHttpMessageHandler.SetupResponse(HttpMethod.Get, MyService.Path, HttpStatusCode.OK, new StringContent(value));
+            
             var result = await BuildService().GetValue();
-            Assert.Equal(value, result);
+            
+            result.Should().Be(value);
             _mockHttpMessageHandler.Verify(HttpMethod.Get, MyService.Path, Times.Once());
         }
 
@@ -70,8 +72,10 @@ namespace Moq.HttpClientUtilities.Samples
         public async Task TestGetValue_ShouldThrowIfResponseIsNotFound()
         {
             _mockHttpMessageHandler.SetupResponse(HttpMethod.Get, MyService.Path, HttpStatusCode.NotFound);
-            var service = BuildService();
-            await Assert.ThrowsAsync<HttpRequestException>(() => service.GetValue());
+            
+            Func<Task> action = () => BuildService().GetValue();
+            
+            await action.Should().ThrowAsync<HttpRequestException>();
             _mockHttpMessageHandler.Verify(HttpMethod.Get, MyService.Path, Times.Once());
         }
 
@@ -82,3 +86,21 @@ namespace Moq.HttpClientUtilities.Samples
 ```
 
 Several extension methods are available to tailor mocked responses to your needs. You can combine multiple response setups on the same mock instance: the same rules as standard setups with Moq apply.
+
+You can pass a `IList<HttpRequestMessage>` to each of your setups. Every request that falls under a setup where you passed a list will be added to that list, so that you can check them afterwards. Example:
+
+```csharp
+[Fact]
+public async Task TestGetValue_SentRequestsExample()
+{
+    var value = _fixture.Create<string>();
+    var sentRequests = new List<HttpRequestMessage>();
+    _mockHttpMessageHandler.SetupOKResponseOnAnyMethodAnyURI(value, sentRequests);
+    
+    var result = await BuildService().GetValue();
+    
+    sentRequests.Should().HaveCount(1);
+    sentRequests[0].Method.Should().Be(HttpMethod.Get);
+    sentRequests[0].Should().Match<HttpRequestMessage>(request => request.MatchesUri(MyService.Path));
+}
+```
