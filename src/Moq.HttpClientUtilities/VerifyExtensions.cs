@@ -17,7 +17,7 @@ namespace Moq.HttpClientUtilities
         public static void Verify(this Mock<HttpMessageHandler> handler,
             HttpMethod method, string path, Times times)
         {
-            handler.Protected().Verify(SetupExtensions.SendAsync, times, 
+            handler.Protected().Verify(SetupResponseExtensions.SendAsync, times, 
                 ItExpr.Is<HttpRequestMessage>(x => x.Method == method && x.MatchesUri(path)), 
                 ItExpr.IsAny<CancellationToken>());
         } 
