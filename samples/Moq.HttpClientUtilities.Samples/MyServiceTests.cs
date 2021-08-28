@@ -20,7 +20,6 @@ namespace Moq.HttpClientUtilities.Samples
         {
             var value = _fixture.Create<string>();
             _mockHttpMessageHandler.SetupResponse(HttpMethod.Get, MyService.Path, HttpStatusCode.OK, new StringContent(value));
-            
             var result = await BuildService().GetValue();
             
             result.Should().Be(value);
