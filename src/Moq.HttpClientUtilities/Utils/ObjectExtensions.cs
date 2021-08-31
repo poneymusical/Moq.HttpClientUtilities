@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace Moq.HttpClientUtilities.Utils
 {
+    
     internal static class ObjectExtensions
     {
         private static string ToJsonString(this object obj) =>

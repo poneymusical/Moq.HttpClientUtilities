@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b7d5f39-f26b-450d-af12-588d58bc3522" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/Setups/SetupResponseExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Moq.HttpClientUtilities/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Moq.HttpClientUtilities/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Moq.HttpClientUtilities.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Moq.HttpClientUtilities.sln.DotSettings" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/Moq.HttpClientUtilities.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/Moq.HttpClientUtilities.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/SetupExtensions.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/Utils/ObjectExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/Utils/ObjectExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/VerifyExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moq.HttpClientUtilities/VerifyExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +16,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1xEldvBpqfPyxX4iCOSDilgs20W" />
   <component name="ProjectLevelVcsManager">
@@ -50,7 +54,7 @@
       <workItem from="1629928226128" duration="240000" />
       <workItem from="1629929195135" duration="446000" />
       <workItem from="1630134793444" duration="46000" />
-      <workItem from="1630134921967" duration="6134000" />
+      <workItem from="1630134921967" duration="10339000" />
     </task>
     <servers />
   </component>
