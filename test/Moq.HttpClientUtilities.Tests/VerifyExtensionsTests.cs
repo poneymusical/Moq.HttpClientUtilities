@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -12,9 +12,10 @@ namespace Moq.HttpClientUtilities.Tests
     public class VerifyExtensionsTests
     {
         private readonly Fixture _fixture = new();
-        
-        [Fact]
-        public async Task Verify()
+
+        [Theory]
+        [MemberData(nameof(StatusCodesAndMethods))]
+        public async Task Verify(HttpStatusCode statusCode, HttpMethod method)
         {
             var path = _fixture.Create<string>();
             var mockHandler = new Mock<HttpMessageHandler>();
@@ -22,15 +23,17 @@ namespace Moq.HttpClientUtilities.Tests
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync", 
                     ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK));
+                .ReturnsAsync(new HttpResponseMessage(statusCode));
 
-            var httpClient = new HttpClient(mockHandler.Object){BaseAddress = new Uri("http://unittest")};
+            var httpClient = mockHandler.CreateHttpClient();
+            await httpClient.SendAsync(new HttpRequestMessage(method, path));
 
-            await httpClient.GetAsync(path);
-            
-            mockHandler.Verify(HttpMethod.Get, path, Times.Once());
-            mockHandler.Verify(HttpMethod.Get, _fixture.Create<string>(), Times.Never());
-            mockHandler.Verify(HttpMethod.Post, path, Times.Never());
+            mockHandler.Verify(method, path, Times.Once());
+            mockHandler.Verify(method, _fixture.Create<string>(), Times.Never());
+            mockHandler.Verify(TestUtils.DifferentVerb(method), path, Times.Never());
         }
+
+        public static IEnumerable<object[]> StatusCodesAndMethods() =>
+            TestUtils.StatusCodesAndMethods();
     }
 }

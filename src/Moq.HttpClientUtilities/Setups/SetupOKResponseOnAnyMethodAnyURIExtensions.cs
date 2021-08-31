@@ -10,13 +10,11 @@ namespace Moq.HttpClientUtilities
         /// <summary>
         /// Sets up a HTTP response. The handler will send a OK response back on any HTTP method and any path.
         /// </summary>
-        /// <param name="content">The response content. The object will be serialized according to the selected mode.</param>
-        /// <param name="mode">The serialization mode.</param>
+        /// <param name="content">The response content. The object will be serialized to JSON.</param>
         /// <param name="sentRequests">The request collection where the requests will be stored.</param>
         public static void SetupOKResponseOnAnyMethodAnyURI(this Mock<HttpMessageHandler> handler,
-            object content, Serialization mode = Serialization.Json,
-            IList<HttpRequestMessage> sentRequests = null) =>
-            SetupOKResponseOnAnyMethodAnyURI(handler, content.Serialize(mode), sentRequests);
+            object content, IList<HttpRequestMessage> sentRequests = null) =>
+            SetupOKResponseOnAnyMethodAnyURI(handler, content.ToJsonString(), sentRequests);
 
         /// <summary>
         /// Sets up a HTTP response. The handler will send a OK response back on any HTTP method and any path.
