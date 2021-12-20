@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Moq.HttpClientUtilities.Utils;
 using Moq.Protected;
 
-namespace Moq.HttpClientUtilities
+namespace Moq.HttpClientUtilities.Setups
 {
     public static class SetupResponseOnAnyURIExtensions
     {

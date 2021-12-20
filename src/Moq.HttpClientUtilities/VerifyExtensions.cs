@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading;
+using Moq.HttpClientUtilities.Setups;
 using Moq.HttpClientUtilities.Utils;
 using Moq.Protected;
 

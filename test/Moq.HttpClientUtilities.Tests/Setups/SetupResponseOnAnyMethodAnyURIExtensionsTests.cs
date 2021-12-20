@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
+using Moq.HttpClientUtilities.Setups;
 using Xunit;
 
 namespace Moq.HttpClientUtilities.Tests.Setups

@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using Moq.HttpClientUtilities.Utils;
 
-namespace Moq.HttpClientUtilities
+namespace Moq.HttpClientUtilities.Setups
 {
     public static class SetupResponseOnGETExtensions
     {
